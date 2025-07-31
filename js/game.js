@@ -112,7 +112,7 @@ const loadGame = () => {
 }
 
 const startTimer = () => {
-    setInterval(() => {
+    this.loop = setInterval(() => {
         const currentTimer = Number(timer.innerHTML);
         timer.innerHTML = currentTimer +1;
     }, 1000);
