@@ -1,4 +1,6 @@
 const grid = document.querySelector('.grid');
+const spanPlayer = document.querySelector('.player');
+const timer = document.querySelector('.timer');
 
 const personagens = [
     'beth',
@@ -26,7 +28,8 @@ const checkEndGame = () => {
     const disabledCards = document.querySelectorAll('.disabled-card');
 
     if (disabledCards.length === 20) {
-        alert('Parabens, Voce conseguiu');
+        clearInterval(this.loop);
+        alert(`Parabens, ${spanPlayer.innerHTML}! Seu tempo foi: ${timer.innerHTML}`);
     }
 }
 
@@ -105,6 +108,20 @@ const loadGame = () => {
         const card = createCard(personagem);
         grid.appendChild(card);
     });
+
 }
 
-loadGame();
+const startTimer = () => {
+    setInterval(() => {
+        const currentTimer = Number(timer.innerHTML);
+        timer.innerHTML = currentTimer +1;
+    }, 1000);
+}
+
+window.onload = () => {
+    // Recupera o nome do jogador do Local Storage ou usa 'Player' como padrão
+    const playerName = localStorage.getItem('player') || 'Player';
+    spanPlayer.innerHTML = playerName.trim(); // Remove espaços indesejados
+    startTimer();
+    loadGame();
+}
